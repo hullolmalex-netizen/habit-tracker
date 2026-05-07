@@ -10,16 +10,15 @@ class DatabaseSeeder extends Seeder
 {
     public function run(): void
     {
-        // Create a demo user if none exists
+        // Demo user: aziz@gmail.com / 1234
         $user = User::firstOrCreate(
-            ['email' => 'demo@habittracker.com'],
+            ['email' => 'aziz@gmail.com'],
             [
-                'name'     => 'Demo User',
-                'password' => Hash::make('password'),
+                'name'     => 'Ahmed Aziz',
+                'password' => Hash::make('1234'),
             ]
         );
 
-        // Run seeders in order (categories first, then habits)
         $this->call([
             CategorySeeder::class,
             HabitSeeder::class,
