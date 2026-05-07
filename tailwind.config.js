@@ -1,22 +1,19 @@
+import defaultTheme from 'tailwindcss/defaultTheme';
+
 /** @type {import('tailwindcss').Config} */
 export default {
-    // Enable dark mode via a class on <html> tag
     darkMode: 'class',
-
     content: [
         './vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php',
         './storage/framework/views/*.php',
         './resources/views/**/*.blade.php',
         './resources/js/**/*.js',
     ],
-
     theme: {
         extend: {
-            // Custom font
             fontFamily: {
-                sans: ['Inter', 'ui-sans-serif', 'system-ui'],
+                sans: ['Figtree', ...defaultTheme.fontFamily.sans],
             },
-            // Custom brand colors
             colors: {
                 brand: {
                     50:  '#f0fdf4',
@@ -31,25 +28,7 @@ export default {
                     900: '#14532d',
                 },
             },
-            // Smooth animations
-            animation: {
-                'fade-in': 'fadeIn 0.3s ease-in-out',
-                'slide-up': 'slideUp 0.3s ease-out',
-            },
-            keyframes: {
-                fadeIn: {
-                    '0%': { opacity: '0' },
-                    '100%': { opacity: '1' },
-                },
-                slideUp: {
-                    '0%': { transform: 'translateY(10px)', opacity: '0' },
-                    '100%': { transform: 'translateY(0)', opacity: '1' },
-                },
-            },
         },
     },
-
-    plugins: [
-        require('@tailwindcss/forms'),
-    ],
+    plugins: [],
 };
