@@ -4,15 +4,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>HabitTracker &mdash; Build Better Habits</title>
-
-    {{-- Prevent white flash --}}
     <script>
         if (localStorage.getItem('theme') === 'dark' ||
             (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
             document.documentElement.classList.add('dark');
         }
     </script>
-
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="h-full bg-gray-50 dark:bg-gray-900">
@@ -26,14 +23,29 @@
     <p class="text-gray-500 dark:text-gray-400 text-lg text-center max-w-md mb-10">
         Track your daily habits, visualize your streaks, and become the best version of yourself.
     </p>
+
+    {{-- Feature pills with icons --}}
     <div class="flex flex-wrap justify-center gap-3 mb-10">
-        @foreach(['📊 Statistics', '📅 Calendar View', '🔥 Streaks', '🌙 Dark Mode', '📱 Mobile Ready'] as $f)
-            <span class="px-4 py-2 rounded-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-sm text-gray-700 dark:text-gray-300 shadow-sm">{{ $f }}</span>
+        @php
+        $features = [
+            ['label' => 'Statistics',    'svg' => '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>'],
+            ['label' => 'Calendar View', 'svg' => '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>'],
+            ['label' => 'Streaks',       'svg' => '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/>'],
+            ['label' => 'Dark Mode',     'svg' => '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>'],
+            ['label' => 'Mobile Ready',  'svg' => '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/>'],
+        ];
+        @endphp
+        @foreach($features as $f)
+            <span class="flex items-center gap-2 px-4 py-2 rounded-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-sm text-gray-700 dark:text-gray-300 shadow-sm">
+                <svg class="w-4 h-4 text-brand-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">{!! $f['svg'] !!}</svg>
+                {{ $f['label'] }}
+            </span>
         @endforeach
     </div>
+
     <div class="flex flex-col sm:flex-row gap-3">
         @auth
-            <a href="{{ route('dashboard') }}" class="btn-primary px-8 py-3 text-base">Go to Dashboard →</a>
+            <a href="{{ route('dashboard') }}" class="btn-primary px-8 py-3 text-base">Go to Dashboard</a>
         @else
             <a href="{{ route('register') }}" class="btn-primary px-8 py-3 text-base">Get Started Free</a>
             <a href="{{ route('login') }}" class="btn-secondary px-8 py-3 text-base">Sign In</a>

@@ -8,24 +8,19 @@ use Illuminate\Database\Seeder;
 
 class CategorySeeder extends Seeder
 {
-    /**
-     * Default categories created for every new demo user.
-     * Each has a color and emoji icon.
-     */
     public static array $defaults = [
-        ['name' => 'Health',     'color' => '#22c55e', 'icon' => '🏥'],
-        ['name' => 'Fitness',    'color' => '#3b82f6', 'icon' => '💪'],
-        ['name' => 'Learning',   'color' => '#8b5cf6', 'icon' => '📚'],
-        ['name' => 'Mindfulness','color' => '#f59e0b', 'icon' => '🧘'],
-        ['name' => 'Nutrition',  'color' => '#ef4444', 'icon' => '🥗'],
-        ['name' => 'Social',     'color' => '#ec4899', 'icon' => '👥'],
-        ['name' => 'Finance',    'color' => '#14b8a6', 'icon' => '💰'],
-        ['name' => 'Creativity', 'color' => '#f97316', 'icon' => '🎨'],
+        ['name' => 'Health',      'color' => '#22c55e', 'icon' => 'health'],
+        ['name' => 'Fitness',     'color' => '#3b82f6', 'icon' => 'fitness'],
+        ['name' => 'Learning',    'color' => '#8b5cf6', 'icon' => 'learning'],
+        ['name' => 'Mindfulness', 'color' => '#f59e0b', 'icon' => 'mindfulness'],
+        ['name' => 'Nutrition',   'color' => '#ef4444', 'icon' => 'nutrition'],
+        ['name' => 'Social',      'color' => '#ec4899', 'icon' => 'social'],
+        ['name' => 'Finance',     'color' => '#14b8a6', 'icon' => 'finance'],
+        ['name' => 'Creativity',  'color' => '#f97316', 'icon' => 'creativity'],
     ];
 
     public function run(): void
     {
-        // Create categories for the demo user only
         $user = User::first();
         if (! $user) return;
 
