@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Carbon\Carbon;
 
 class Habit extends Model
 {
@@ -17,7 +18,7 @@ class Habit extends Model
         'description',
         'color',
         'icon',
-        'frequency',   // daily | weekly
+        'frequency',
         'is_active',
     ];
 
@@ -31,19 +32,16 @@ class Habit extends Model
     |--------------------------------------------------------------------------
     */
 
-    /** Habit belongs to one user */
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
-    /** Habit belongs to one category (optional) */
     public function category()
     {
         return $this->belongsTo(Category::class);
     }
 
-    /** Habit has many daily log entries */
     public function logs()
     {
         return $this->hasMany(HabitLog::class);
@@ -61,9 +59,37 @@ class Habit extends Model
         return $query->where('is_active', true);
     }
 
-    /** Habits belonging to the authenticated user */
+    /** Habits for a specific user */
     public function scopeForUser($query, $userId)
     {
         return $query->where('user_id', $userId);
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Helpers
+    |--------------------------------------------------------------------------
+    */
+
+    /** Was this habit completed today? */
+    public function isCompletedToday(): bool
+    {
+        return $this->logs()
+            ->whereDate('completed_at', Carbon::today())
+            ->exists();
+    }
+
+    /** Was this habit completed on a specific date? */
+    public function isCompletedOn(Carbon $date): bool
+    {
+        return $this->logs()
+            ->whereDate('completed_at', $date)
+            ->exists();
+    }
+
+    /** Total number of completions */
+    public function totalCompletions(): int
+    {
+        return $this->logs()->count();
     }
 }

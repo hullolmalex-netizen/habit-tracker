@@ -6,6 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Carbon\Carbon;
 
 class User extends Authenticatable
 {
@@ -26,25 +27,48 @@ class User extends Authenticatable
     {
         return [
             'email_verified_at' => 'datetime',
-            'password' => 'hashed',
+            'password'          => 'hashed',
         ];
     }
 
     /*
     |--------------------------------------------------------------------------
-    | Relationships — to be expanded in STEP 2
+    | Relationships
     |--------------------------------------------------------------------------
     */
 
-    /** A user owns many habits */
     public function habits()
     {
         return $this->hasMany(Habit::class);
     }
 
-    /** A user owns many categories */
     public function categories()
     {
         return $this->hasMany(Category::class);
+    }
+
+    public function habitLogs()
+    {
+        return $this->hasMany(HabitLog::class);
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Helpers
+    |--------------------------------------------------------------------------
+    */
+
+    /** How many of user's active habits were completed today */
+    public function completedTodayCount(): int
+    {
+        return $this->habitLogs()
+            ->whereDate('completed_at', Carbon::today())
+            ->count();
+    }
+
+    /** Total active habits count */
+    public function activeHabitsCount(): int
+    {
+        return $this->habits()->active()->count();
     }
 }

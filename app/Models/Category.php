@@ -33,4 +33,16 @@ class Category extends Model
     {
         return $this->hasMany(Habit::class);
     }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Helpers
+    |--------------------------------------------------------------------------
+    */
+
+    /** Count of active habits in this category */
+    public function activeHabitsCount(): int
+    {
+        return $this->habits()->where('is_active', true)->count();
+    }
 }

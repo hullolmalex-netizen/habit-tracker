@@ -12,7 +12,7 @@ class HabitLog extends Model
     protected $fillable = [
         'habit_id',
         'user_id',
-        'completed_at',  // date only (Y-m-d)
+        'completed_at',
         'notes',
     ];
 
@@ -26,13 +26,11 @@ class HabitLog extends Model
     |--------------------------------------------------------------------------
     */
 
-    /** Log belongs to a habit */
     public function habit()
     {
         return $this->belongsTo(Habit::class);
     }
 
-    /** Log belongs to a user */
     public function user()
     {
         return $this->belongsTo(User::class);
