@@ -14,42 +14,36 @@ use App\Http\Controllers\CalendarController;
 |--------------------------------------------------------------------------
 */
 Route::get('/', function () {
-    return redirect()->route('dashboard');
+    return view('welcome');
 });
 
 /*
 |--------------------------------------------------------------------------
-| Auth Routes (provided by Breeze)
+| Auth Routes
 |--------------------------------------------------------------------------
 */
 require __DIR__.'/auth.php';
 
 /*
 |--------------------------------------------------------------------------
-| Protected Routes (require login)
+| Protected Routes
 |--------------------------------------------------------------------------
 */
 Route::middleware(['auth', 'verified'])->group(function () {
 
-    // Dashboard
     Route::get('/dashboard', [DashboardController::class, 'index'])
         ->name('dashboard');
 
-    // Habits CRUD
     Route::resource('habits', HabitController::class);
 
-    // Mark habit as done / undo for today
     Route::post('/habits/{habit}/log', [HabitLogController::class, 'toggle'])
         ->name('habits.log.toggle');
 
-    // Categories CRUD
     Route::resource('categories', CategoryController::class);
 
-    // Statistics
     Route::get('/stats', [StatController::class, 'index'])
         ->name('stats.index');
 
-    // Calendar
     Route::get('/calendar', [CalendarController::class, 'index'])
         ->name('calendar.index');
     Route::get('/calendar/{year}/{month}', [CalendarController::class, 'show'])
