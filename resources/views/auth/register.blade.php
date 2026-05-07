@@ -3,11 +3,16 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Register — Habit Tracker</title>
+    <title>Register &mdash; Habit Tracker</title>
+    <script>
+        if (localStorage.getItem('theme') === 'dark' ||
+            (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        }
+    </script>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="h-full bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
-
 <div class="w-full max-w-md px-6">
     <div class="text-center mb-8">
         <div class="inline-flex items-center justify-center w-14 h-14 bg-brand-500 rounded-2xl mb-4">
@@ -18,34 +23,30 @@
         <h1 class="text-2xl font-bold text-gray-900 dark:text-white">Create account</h1>
         <p class="text-gray-500 dark:text-gray-400 mt-1">Start tracking your habits today</p>
     </div>
-
     <div class="card">
         <form method="POST" action="{{ route('register') }}" class="space-y-5">
             @csrf
             <div>
-                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Name</label>
-                <input type="text" name="name" value="{{ old('name') }}" required autofocus
-                       class="form-input" placeholder="Ahmed Aziz">
-                @error('name')<p class="mt-1 text-xs text-red-500">{{ $message }}</p>@enderror
+                <label class="form-label">Name</label>
+                <input type="text" name="name" value="{{ old('name') }}" required autofocus class="form-input" placeholder="Ahmed Aziz">
+                @error('name')<p class="form-error">{{ $message }}</p>@enderror
             </div>
             <div>
-                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Email</label>
-                <input type="email" name="email" value="{{ old('email') }}" required
-                       class="form-input" placeholder="you@example.com">
-                @error('email')<p class="mt-1 text-xs text-red-500">{{ $message }}</p>@enderror
+                <label class="form-label">Email</label>
+                <input type="email" name="email" value="{{ old('email') }}" required class="form-input" placeholder="you@example.com">
+                @error('email')<p class="form-error">{{ $message }}</p>@enderror
             </div>
             <div>
-                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Password</label>
+                <label class="form-label">Password</label>
                 <input type="password" name="password" required class="form-input" placeholder="Min 8 characters">
-                @error('password')<p class="mt-1 text-xs text-red-500">{{ $message }}</p>@enderror
+                @error('password')<p class="form-error">{{ $message }}</p>@enderror
             </div>
             <div>
-                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Confirm Password</label>
-                <input type="password" name="password_confirmation" required class="form-input" placeholder="Repeat password">
+                <label class="form-label">Confirm Password</label>
+                <input type="password" name="password_confirmation" required class="form-input">
             </div>
             <button type="submit" class="btn-primary w-full justify-center py-2.5">Create Account</button>
         </form>
-
         <p class="mt-5 text-center text-sm text-gray-500 dark:text-gray-400">
             Already have an account?
             <a href="{{ route('login') }}" class="text-brand-600 hover:underline font-medium">Sign in</a>
