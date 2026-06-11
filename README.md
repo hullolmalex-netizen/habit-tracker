@@ -108,15 +108,15 @@ app/
 | Step | Description | Status |
 |---|---|---|
 | 1 | Project setup, Tailwind, Breeze | ✅ Done |
-| 2 | Database schema & models | 🔄 Next |
-| 3 | Auth pages & dashboard layout | ⏳ Pending |
-| 4 | Habit CRUD | ⏳ Pending |
-| 5 | Daily tracking & streaks | ⏳ Pending |
-| 6 | Statistics & analytics | ⏳ Pending |
-| 7 | Calendar feature | ⏳ Pending |
-| 8 | UI polish & dark mode | ⏳ Pending |
-| 9 | Testing & bug fixes | ⏳ Pending |
-| 10 | Final optimization & deployment | ⏳ Pending |
+| 2 | Database schema & models | ✅ Done |
+| 3 | Auth pages & dashboard layout | ✅ Done |
+| 4 | Habit CRUD | ✅ Done |
+| 5 | Daily tracking & streaks | ✅ Done |
+| 6 | Statistics & analytics | ✅ Done |
+| 7 | Calendar feature | ✅ Done |
+| 8 | UI polish & dark mode | ✅ Done |
+| 9 | Testing & bug fixes | ✅ Done |
+| 10 | Final optimization & deployment | ✅ Done |
 
 ---
 
